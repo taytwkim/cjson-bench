@@ -10,6 +10,8 @@ A more realistic workload could use a shared work queue to distribute objects fr
 
 The files under `jsonl/` were extracted from datasets in [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark/tree/master/data).
 
+Allocation interposition relies on Linux `LD_PRELOAD`.
+
 ## Usage
 
 ### Data
@@ -48,3 +50,29 @@ Throughput: 62650 records/s
 ```
 
 Timing starts after the threads have been created. There is no synchronization between threads during the parsing phase, though `malloc` uses locks internally for thread safety.
+
+### Benchmarking
+
+`run_bench.py` runs the `benchmark` binary and writes the results to an output file.
+
+```shell
+# Load and configure malloc through env var.
+export LD_PRELOAD=/path/to/my/malloc.so
+
+# Run benchmark.
+python3 run_bench.py
+
+# (Optional) Unset env vars.
+unset LD_PRELOAD  
+```
+
+Runs can be configured:
+
+```shell
+python3 run_bench.py \
+  --input-jsonl-path jsonl/twitter.jsonl \
+  --num-threads 8 \
+  --num-repetitions 1000 \
+  --runs 10 \
+  --output-path out/threads8.txt
+```
