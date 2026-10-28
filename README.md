@@ -1,26 +1,28 @@
 # JSON Parsing Benchmark
 
-Multithreaded JSON parsing workload using [cJSON](https://github.com/DaveGamble/cJSON).
+JSON parsing workload using [cJSON](https://github.com/DaveGamble/cJSON).
 
 I implemented a memory allocator and wanted to test it on a realistic workload with interesting allocation patterns. A JSON parser seemed like a good fit, as JSON can be nested and contain different types, leading to varied allocation sizes and patterns.
 
-`main.c` creates multiple threads. Each thread reads JSON objects from an input `jsonl` file, parsing each object and immediately deleting the resulting tree. A more realistic workload could use a shared work queue to distribute objects among threads. But since the `jsonl` files I have aren't that big, I have each thread parse the entire file.
+`main.c` creates multiple threads. Each thread reads JSON objects from a `jsonl` file, parsing each object and immediately deleting the resulting tree.
+
+A more realistic workload could use a shared work queue to distribute objects from the same file among threads. But since the `jsonl` files I have aren't that big, I have each thread parse the same, entire file.
 
 The files under `jsonl/` were extracted from datasets in [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark/tree/master/data).
 
 ## Usage
 
-* `jsonl.py` is a Python script I wrote to extract tweets and events from `twitter.json` and `citm_catalog.json` in nativejson-benchmark. The output contains one JSON object per line, making it easier to process individual entries than in the original JSON files.
+`jsonl.py` is a Python script I wrote to extract tweets and events from `twitter.json` and `citm_catalog.json`. The output contains one JSON object per line, making it easier to process individual entries than in the original JSON files.
 
 ```bash
 # python3 jsonl.py input_json_filename output_jsonl_filename 
 python3 jsonl.py json/twitter.json jsonl/twitter.jsonl
 ```
 
-* `main.c` is the main program that creates threads and parses the JSON objects.
+`main.c` is the main program that creates threads and parses the JSON objects.
 
 ```bash
-# build the program
+# Build the program
 make 
 
 # Usage: ./benchmark FILENAME NUM_THREADS NUM_REPETITIONS"
@@ -41,4 +43,4 @@ Elapsed: 0.003192 s
 Throughput: 62650 records/s
 ```
 
-Timing starts after the threads have been created. There is no synchronization between threads during the parsing phase, though `malloc` may use locks internally for thread safety.
+Timing starts after the threads have been created. There is no synchronization between threads during the parsing phase, though `malloc` uses locks internally for thread safety.
