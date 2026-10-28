@@ -12,12 +12,16 @@ The files under `jsonl/` were extracted from datasets in [nativejson-benchmark](
 
 ## Usage
 
-`jsonl.py` is a Python script I wrote to extract tweets and events from `twitter.json` and `citm_catalog.json`. The output contains one JSON object per line, making it easier to process individual entries than in the original JSON files.
+### Data
+
+`jsonl.py` is a Python script that extracts tweets and events from `twitter.json` and `citm_catalog.json`. The output contains one JSON object per line, making it easier to process individual entries than in the original JSON files.
 
 ```bash
 # python3 jsonl.py input_json_filename output_jsonl_filename 
 python3 jsonl.py json/twitter.json jsonl/twitter.jsonl
 ```
+
+### JSON Parsing
 
 `main.c` is the main program that creates threads and parses the JSON objects.
 
@@ -31,7 +35,7 @@ make
 
 We can set `NUM_REPETITIONS` to test the program at scale by having each thread make multiple passes over the input file.
 
-The program prints the measured wall-clock time and throughput to the terminal.
+The program prints the measured wall-clock time and throughput.
 
 ```
 > ./benchmark jsonl/twitter.jsonl 2 1
