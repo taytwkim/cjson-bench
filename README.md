@@ -33,7 +33,7 @@ make
 ./benchmark jsonl/twitter.jsonl 2 1
 ```
 
-We can set `NUM_REPETITIONS` to test the program at scale by having each thread make multiple passes over the input file.
+`NUM_REPETITIONS` can be set to test the program at scale by having each thread make multiple passes over the input file.
 
 The program prints the measured wall-clock time and throughput.
 
