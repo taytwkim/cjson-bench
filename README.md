@@ -56,13 +56,13 @@ Timing starts after the threads have been created. There is no synchronization b
 `run_bench.py` runs the `benchmark` binary and writes the results to an output file.
 
 ```shell
-# Load and configure malloc through env var.
+# Load and configure malloc
 export LD_PRELOAD=/path/to/my/malloc.so
 
-# Run benchmark.
+# Run benchmark
 python3 run_bench.py
 
-# (Optional) Unset env vars.
+# (Optional) Unset env vars
 unset LD_PRELOAD  
 ```
 
@@ -72,7 +72,7 @@ Runs can be configured:
 python3 run_bench.py \
   --input-jsonl-path jsonl/twitter.jsonl \
   --num-threads 8 \
-  --num-repetitions 1000 \
+  --num-repetitions 100 \
   --runs 10 \
   --output-path out/threads8.txt
 ```
