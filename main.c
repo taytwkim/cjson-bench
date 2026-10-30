@@ -8,13 +8,13 @@
 #include <string.h>
 #include <time.h>
 
-// Each line in the jsonl file.
+// Represents each line in the jsonl file.
 struct line {
     char *text;
     size_t length;
 };
 
-// The entire file.
+// Represents the entire file.
 struct workload {
     struct line *lines;
     size_t count;
@@ -23,8 +23,9 @@ struct workload {
 
 struct workload work;
 
-// Startup info for thread coordination.
-// Wait until all threads are ready.
+// Startup for thread coordination.
+// Wait until all threads are ready
+// before starting the timer.
 struct startup {
     pthread_mutex_t mutex;
     pthread_cond_t condition;
@@ -45,10 +46,10 @@ struct worker {
     struct timespec end;
 };
 
-// Read input file and store lines in workload.
+// Read input file and store lines.
 void load_file(const char *filename)
 {
-    // pointer to a FILE object
+    // Pointer to a FILE object
     FILE *file = fopen(filename, "r");
 
     if (!file) {
@@ -110,12 +111,13 @@ void *run(void *argument)
 
     // Startup Coordination
     // Wait until all threads have been created and are ready to run.
+    
     pthread_mutex_lock(&startup.mutex);
 
     startup.ready++;
 
     // Pthread condition variable lets thread sleep while waiting for something to change.
-    // Here, we are waiting for startup.start == 1.
+    // Here, we are waiting for startup.start to be set to 1 in main.
 
     // Broadcast to wake up the sleeping threads.
     pthread_cond_broadcast(&startup.condition);
@@ -123,7 +125,7 @@ void *run(void *argument)
     while (!startup.start) {
         // If startup.start has not been set, release the lock and go to sleep.
         // Thread will wake up when another thread calls broadcast.
-        // "Waking up" does not mean the thread will immediately run,
+        // "Waking up" does not mean the thread is scheduled and run immediately,
         // it has to wait and reacquire the lock.
         pthread_cond_wait(&startup.condition, &startup.mutex);
     }
@@ -131,7 +133,7 @@ void *run(void *argument)
     pthread_mutex_unlock(&startup.mutex);
 
     // Parse JSON
-    for (size_t repeat = 0; repeat < work.repetitions; repeat++) {
+    for (size_t repeat = 0; repeat < work.repetitions; ++repeat) {
         for (size_t i = 0; i < work.count; i++) {
             cJSON *object = cJSON_ParseWithLengthOpts(
                 work.lines[i].text,
@@ -198,7 +200,7 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    for (long i = 0; i < thread_count; i++) {
+    for (long i = 0; i < thread_count; ++i) {
         int error = pthread_create(&threads[i], NULL, run, &workers[i]);
 
         if (error) {
@@ -223,14 +225,14 @@ int main(int argc, char **argv)
     
     pthread_mutex_unlock(&startup.mutex);
 
-    for (long i = 0; i < thread_count; i++) {
+    for (long i = 0; i < thread_count; ++i) {
         pthread_join(threads[i], NULL);
     }
 
     // find latest end time
     double seconds = 0;
 
-    for (long i = 0; i < thread_count; i++) {
+    for (long i = 0; i < thread_count; ++i) {
         if (workers[i].failed_line) {
             fprintf(stderr, "Thread %ld: parse failed on line %zu\n",
                     i + 1, workers[i].failed_line);
@@ -263,7 +265,7 @@ int main(int argc, char **argv)
     free(workers);
     free(threads);
 
-    for (size_t i = 0; i < work.count; i++) {
+    for (size_t i = 0; i < work.count; ++i) {
         free(work.lines[i].text);
     }
 

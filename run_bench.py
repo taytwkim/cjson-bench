@@ -11,7 +11,7 @@ DEFAULT_INPUT_JSONL_PATH = Path(__file__).resolve().parent / "jsonl/twitter.json
 DEFAULT_OUTPUT_PATH = Path("out/results.txt")
 DEFAULT_NUM_THREADS = 8
 DEFAULT_NUM_REPETITIONS = 100
-DEFAULT_RUNS = 5
+DEFAULT_RUNS = 10
 
 
 def main():

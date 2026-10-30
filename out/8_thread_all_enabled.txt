@@ -1,0 +1,11 @@
+Run 1: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.590774 s | Throughput: 135416 records/s
+Run 2: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.564815 s | Throughput: 141639 records/s
+Run 3: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.566589 s | Throughput: 141196 records/s
+Run 4: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.596459 s | Throughput: 134125 records/s
+Run 5: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.611860 s | Throughput: 130749 records/s
+Run 6: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.602587 s | Throughput: 132761 records/s
+Run 7: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.606417 s | Throughput: 131922 records/s
+Run 8: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.604304 s | Throughput: 132384 records/s
+Run 9: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.608515 s | Throughput: 131468 records/s
+Run 10: Threads: 8 | Records per pass: 100 | Repetitions per thread: 100 | Total records: 80000 | Elapsed: 0.613873 s | Throughput: 130320 records/s
+Average elapsed: 0.596619 s
