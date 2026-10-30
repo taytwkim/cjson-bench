@@ -2,7 +2,7 @@
 
 JSON parsing workload using [cJSON](https://github.com/DaveGamble/cJSON).
 
-I implemented a memory allocator and wanted to test it on a realistic workload with interesting allocation patterns. A JSON parser seemed like a good fit, as JSON can be nested and contain different types, leading to varied allocation sizes and patterns.
+I implemented a [memory allocator](https://github.com/taytwkim/malloc.git) and wanted to test it on a realistic workload with interesting allocation patterns. A JSON parser seemed like a good fit, as JSON can be nested and contain different types, leading to varied allocation sizes and patterns.
 
 `main.c` creates multiple threads. Each thread reads JSON records from a `jsonl` file, parsing each record and immediately deleting the resulting tree.
 
