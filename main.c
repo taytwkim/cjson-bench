@@ -59,10 +59,10 @@ void load_file(const char *filename)
 
     char *text = NULL;
     
-    /* We distinguish buffer_size and bytes_read because
-     * the OS doesn't know how many bytes to read in advance,
-     * so it allocates a buffer and increases its size if necessary.
-     */
+    // We distinguish buffer_size and bytes_read because
+    // the OS doesn't know how many bytes to read in advance,
+    // so it allocates a buffer and increases its size if necessary.
+     
     size_t buffer_size = 0;
     ssize_t bytes_read;
 
